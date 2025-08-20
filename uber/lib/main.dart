@@ -2,10 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/providers/app_state.dart';
 import 'package:uber/providers/user.dart';
-import 'package:uber/screens/login.dart';
-import 'package:uber/screens/splash.dart';
+import 'package:uber/views/home.dart';
+import 'package:uber/views/home/home_view.dart';
+import 'package:uber/views/login/login_view.dart';
+import 'package:uber/views/splash.dart';
 import 'locators/service_locator.dart';
-import 'screens/home.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -24,29 +25,11 @@ Future<void> main() async {
         theme: ThemeData(
           primarySwatch: Colors.red
         ),
-        home: MyApp(),
+        home: HomeView(),
       ),
     ),
   );
 }
 
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    UserProvider auth = Provider.of<UserProvider>(context);
-    switch (auth.status) {
-      case Status.Uninitialized:
-        return Splash();
-      case Status.Unauthenticated:
-      case Status.Authenticating:
-        return LoginScreen();
-      case Status.Authenticated:
-        return MyHomePage(title: 'uber');
-      default:
-        return LoginScreen();
-    }
-  }
-}

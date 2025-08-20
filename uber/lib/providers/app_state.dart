@@ -372,17 +372,17 @@ class AppStateProvider with ChangeNotifier {
         .where((element) => element.markerId.value == 'location')
         .toList();
     clearMarkers();
-    if (locationMarkers.length > 0) {
+    if (locationMarkers.isNotEmpty) {
       _markers.add(locationMarkers[0]);
     }
 
 //    here we are updating the drivers markers
-    drivers.forEach((DriverModel driver) {
+    for (var driver in drivers) {
       _addDriverMarker(
           driverId: driver.id,
           position: LatLng(driver.position.lat, driver.position.lng),
           rotation: driver.position.heading);
-    });
+    }
   }
 
   _updateDriverMarker(Marker marker) {
@@ -398,10 +398,10 @@ class AppStateProvider with ChangeNotifier {
 
   _setCustomMapPin() async {
     carPin = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'images/taxi.png');
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/images/taxi.png');
 
     locationPin = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'images/pin.png');
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/images/pin.png');
   }
 
   clearMarkers() {

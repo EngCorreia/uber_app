@@ -116,7 +116,7 @@ class PaymentMethodSelectionWidget extends StatelessWidget {
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                               20.0)), //this right here
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 200,
                                         child: Padding(
                                           padding: const EdgeInsets.all(12.0),

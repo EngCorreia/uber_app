@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserModel{
+class UserModel {
   static const ID = "id";
   static const NAME = "name";
   static const EMAIL = "email";
@@ -22,27 +22,33 @@ class UserModel{
   int? _trips;
   double? _rating;
 
-//  getters
-  String get name => _name!;
-  String get email => _email!;
-  String get id => _id!;
-  String get token => _token!;
+  // 🔹 Construtor com parâmetros
+  UserModel(this._id, this._name, this._email, this._phone, this._token,
+      this._votes, this._trips, this._rating);
 
-  String get phone => _phone!;
-  int get votes => _votes!;
-  int get trips => _trips!;
-  double get rating => _rating!;
+  // 🔹 Construtor vazio
+  UserModel.empty();
 
-  UserModel.fromSnapshot(DocumentSnapshot snapshot){
+  // Getters
+  String get name => _name ?? '';
+  String get email => _email ?? '';
+  String get id => _id ?? '';
+  String get token => _token ?? '';
+  String get phone => _phone ?? '';
+  int get votes => _votes ?? 0;
+  int get trips => _trips ?? 0;
+  double get rating => _rating ?? 0.0;
+
+  // 🔹 Construtor a partir do Firestore
+  UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
     _name = data[NAME];
-      _email = data[EMAIL];
+    _email = data[EMAIL];
     _id = data[ID];
     _token = data[TOKEN];
     _phone = data[PHONE];
     _votes = data[VOTES];
     _trips = data[TRIPS];
-    _rating = data[RATING];
+    _rating = (data[RATING] as num?)?.toDouble(); // conversão segura
   }
-
 }

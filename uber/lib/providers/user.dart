@@ -17,7 +17,7 @@ class UserProvider with ChangeNotifier{
   User? _user;
   Status _status = Status.Uninitialized;
   final UserServices _userServices = UserServices();
-  late UserModel _userModel;
+  UserModel _userModel = UserModel.empty();
 
 //  getter
   UserModel get userModel => _userModel;
